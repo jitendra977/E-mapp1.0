@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>管理者ログイン</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- Animate.css -->
+    <link th:href="@{/vendors/animate.css/animate.min.css}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+  </head>
+
+  <body class="login">
+    <div>
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <form th:action="@{/login}" th:object="${loginForm}" method="post">
+              <h1>管理者ログイン</h1>
+              <div>
+                <input type="text" id="username" name="username" th:field="*{username}" class="form-control" placeholder="ユーザー名" />
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+              </div>
+              <div>
+                <input type="password" id="password" name="password" th:field="*{password}" class="form-control" placeholder="パスワード" required="" />
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+              </div>
+              <div>
+                <button class="btn btn-primary" type="submit">Log in</button>
+              </div>
+              <div th:if="${error}" style="color:red" th:text="${error}"></div>
+            </form>
+            <div class="clearfix"></div>
+
+            <div class="separator">
+              <div class="clearfix"></div>
+              <br />
+              <div>
+                <h1><i class="fa fa-lock" aria-hidden="true"></i>Gentelella Alela!</h1>
+                <p>©2023 All Rights Reserved. </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
