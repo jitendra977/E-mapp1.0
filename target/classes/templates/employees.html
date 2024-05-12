@@ -20,7 +20,7 @@
     <link th:href="@{/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet">
     <!-- JQVMap -->
     <link th:href="@{/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
+    <!-- bootstrap-datetimepicker -->
     <link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
@@ -62,6 +62,7 @@
                             <li><a th:href="@{/employeeSearch}"><i class="fa fa-search" aria-hidden="true"></i> 社員検索 </a></li>
                             <li><a th:href="@{/workhourRegister}"><i class="fa fa-pencil-square" aria-hidden="true"></i> 勤務時間登録 </a></li>
                             <li><a th:href="@{/workhourSearch}"><i class="fa fa-search" aria-hidden="true"></i> 勤務時間検索 </a></li>
+                            <li><a th:href="@{/allWorkHours}"><i class="fa fa-clock-o" aria-hidden="true"></i> All Working Hours </a></li>
                         </ul>
                     </div>
 
@@ -85,7 +86,7 @@
                             <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item"  href="javascript:;"> Profile</a>
 
-                                <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> </a>
+                                <a class="dropdown-item" th:href="@{/login}"><i class="fa fa-sign-out pull-right"></i> </a>
                             </div>
                         </li>
 
@@ -113,7 +114,7 @@
                                 <div class="clearfix"></div>
                             </div>
 
-                            <div class="x_content">
+                            <div class="x_content m3">
 
                                 <div class="table-responsive">
                                     <table class="table table-striped jambo_table bulk_action">
@@ -129,19 +130,19 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="employee : ${employees}" >
-                                                <td th:text="${employee.empCode}" ></td>
-                                                <td th:text="${employee.startDate}" ></td>
-                                                <td th:text="${employee.empName}" ></td>
-                                                <td th:text="${employee.birthday}" ></td>
-                                                <td th:text="${employee.lastDate}" ></td>
-                                                <td th:text="${employee.department}" ></td>
-                                                <td >
-                                                    <a th:href="@{/employees/edit/{empCode}(empCode=${employee.empCode})}"
-                                                       class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> 変更 </a>
-                                                    <a th:href="@{/employees/{empCode}(empCode=${employee.empCode})}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> 削除 </a>
-                                                </td>
-                                            </tr>
+                                        <tr th:each="employee : ${employees}" >
+                                            <td th:text="${employee.empCode}" ></td>
+                                            <td th:text="${employee.startDate}" ></td>
+                                            <td th:text="${employee.empName}" ></td>
+                                            <td th:text="${employee.birthday}" ></td>
+                                            <td th:text="${employee.lastDate}" ></td>
+                                            <td th:text="${employee.department}" ></td>
+                                            <td >
+                                                <a th:href="@{/edit/{empCode}(empCode=${employee.empCode})}"
+                                                   class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> 変更 </a>
+                                                <a th:href="@{/delete/{empCode}(empCode=${employee.empCode})}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> 削除 </a>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -178,7 +179,7 @@
 <script th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
 <!-- iCheck -->
 <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
-<!-- bootstrap-daterangepicker -->
+<!-- bootstrap-datetimepicker -->
 <script th:src="@{/vendors/moment/min/moment.min.js}"></script>
 <script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
 <!-- bootstrap-wysiwyg -->
@@ -187,17 +188,17 @@
 <script th:src="@{/vendors/google-code-prettify/src/prettify.js}"></script>
 <!-- jQuery Tags Input -->
 <script th:src="@{/vendors/jquery.tagsinput/src/jquery.tagsinput.js}"></script>
-<!-- Switchery -->
+<!-- Switcher -->
 <script th:src="@{/vendors/switchery/dist/switchery.min.js}"></script>
 <!-- Select2 -->
 <script th:src="@{/vendors/select2/dist/js/select2.full.min.js}"></script>
 <!-- Parsley -->
 <script th:src="@{/vendors/parsleyjs/dist/parsley.min.js}"></script>
-<!-- Autosize -->
+<!-- Automize -->
 <script th:src="@{/vendors/autosize/dist/autosize.min.js}"></script>
 <!-- jQuery autocomplete -->
 <script th:src="@{/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js}"></script>
-<!-- starrr -->
+<!-- starer -->
 <script th:src="@{/vendors/starrr/dist/starrr.js}"></script>
 </body>
 </html>

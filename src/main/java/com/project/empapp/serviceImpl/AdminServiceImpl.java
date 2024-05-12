@@ -1,13 +1,12 @@
 package com.project.empapp.serviceImpl;
 
+
 import com.project.empapp.dto.LoginForm;
 import com.project.empapp.models.Admin;
 import com.project.empapp.repositories.AdminRepository;
 import com.project.empapp.services.AdminService;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 

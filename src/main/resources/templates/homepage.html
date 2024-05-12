@@ -62,6 +62,7 @@
                             <li><a th:href="@{/employeeSearch}"><i class="fa fa-search" aria-hidden="true"></i> 社員検索 </a></li>
                             <li><a th:href="@{/workhourRegister}"><i class="fa fa-pencil-square" aria-hidden="true"></i> 勤務時間登録 </a></li>
                             <li><a th:href="@{/workhourSearch}"><i class="fa fa-search" aria-hidden="true"></i> 勤務時間検索 </a></li>
+                            <li><a th:href="@{/allWorkHours}"><i class="fa fa-clock-o" aria-hidden="true"></i> All Working Hours </a></li>
 
                         </ul>
                     </div>
@@ -85,7 +86,7 @@
                             <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item"  href="javascript:;"> Profile</a>
 
-                                <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> </a>
+                                <a class="dropdown-item"  th:href="@{/login}"><i class="fa fa-sign-out pull-right"></i> </a>
                             </div>
                         </li>
 

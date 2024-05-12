@@ -1,26 +1,22 @@
 package com.project.empapp.controllers;
 
 import com.project.empapp.dto.LoginForm;
-import com.project.empapp.models.Admin;
-import com.project.empapp.repositories.AdminRepository;
 import com.project.empapp.services.AdminService;
 import jakarta.validation.Valid;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Controller
 @RequiredArgsConstructor
 //@RequestMapping("/login")
 public class AdminController {
-	
+
     private final   AdminService adminService;
 
     @GetMapping("/login") /* http: */
@@ -31,7 +27,7 @@ public class AdminController {
 
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("loginForm") LoginForm loginForm,
-                             BindingResult bindingResult, Model model) {
+                        BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "login";
         }

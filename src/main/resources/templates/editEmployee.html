@@ -113,7 +113,21 @@
               </div>
               <div class="x_content">
                 <br />
-                <form th:action="@{/employees/{empCode} (empCode = ${employee.empCode})}" th:object="${employee}" id="demo-form2" data-parsley-validate
+
+                The issue seems to be with the mapping in your HTML form and the corresponding controller method.
+
+                In the HTML form, you're sending a POST request to /update/{empCode}, but in the controller, you're expecting a PUT request to /update/{empCode}. This mismatch in request methods is causing the method in the controller not to be invoked when the form is submitted.
+
+                To fix this issue, you have two options:
+
+                Change the HTML form to send a PUT request:
+                Update the form's th:action attribute to send a PUT request to /update/{empCode}.
+                Change the method in the controller to accept a POST request instead of a PUT request.
+                HTML Form:
+
+                html
+                Copy code
+                <form th:action="@{/update/{empCode}(empCode=${employee.empCode})}" th:object="${employee}" id="demo-form2" data-parsley-validate
                       class="form-horizontal form-label-left" method="post">
 
                   <div class="item form-group">
@@ -121,8 +135,10 @@
                       <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
-                      <input type="text" name="empCode" th:field="*{empCode}"  required="required"
-                             class="form-control ">
+                      <label>
+                        <input type="text" name="empCode" th:field="*{empCode}"  required="required"
+                               class="form-control ">
+                      </label>
                       <span style="color:red" th:if="${#fields.hasErrors('empCode')}" th:errors="*{empCode}"></span>
                       <div class="mt-1" th:if="${empCodeError}" style="color:red" th:text="${empCodeError}"></div>
                     </div>
@@ -161,7 +177,7 @@
                   <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">退職日 </label>
                     <div class="col-md-6 col-sm-6 ">
-                      <input id="lastDate" name="lastDate" th:field="*{lastDate}" class="date-picker form-control" placeholder="dd-mm-yyyy"   type="date" >
+                      <label for="lastDate"></label><input id="lastDate" name="lastDate" th:field="*{lastDate}" class="date-picker form-control" placeholder="dd-mm-yyyy" type="date" >
                       <span style="color:red" th:if="${#fields.hasErrors('lastDate')}" th:errors="*{lastDate}"></span>
 
                     </div>

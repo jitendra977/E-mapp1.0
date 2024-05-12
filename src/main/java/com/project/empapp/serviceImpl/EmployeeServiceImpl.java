@@ -4,25 +4,31 @@ import com.project.empapp.dto.EmployeeForm;
 import com.project.empapp.models.Employee;
 import com.project.empapp.repositories.EmployeeRepository;
 import com.project.empapp.services.EmployeeService;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-@Data
-@RequiredArgsConstructor // goi all Constructor
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+
     @Autowired
-    private final EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
+
     @Override
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
+    }
+
+    @Override
+    public boolean isEmpCodeUnique(Long empCode) {
+
+        return employeeRepository.findByEmpCode(empCode) == null;
     }
 
     @Override
@@ -53,20 +59,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.save(employee);
     }
 
-    @Override
-    public boolean isEmpCodeUnique(Long empCode) {
-
-        return employeeRepository.findByEmpCode(empCode) == null;
-    }
 
     @Override
     public Employee getEmployeeById(Long empCode) {
         return employeeRepository.findByEmpCode(empCode);
     }
-
+    // update
     @Override
     public void updateEmployee(Long empCode, EmployeeForm employeeForm) {
-
         Employee existingEmployee = employeeRepository.findByEmpCode(empCode);
 
         existingEmployee.setEmpCode(employeeForm.getEmpCode());
@@ -93,26 +93,24 @@ public class EmployeeServiceImpl implements EmployeeService {
         // データベースに保存
         employeeRepository.save(existingEmployee);
     }
-
     @Override
     public void deleteEmployee(Long empCode) {
         employeeRepository.deleteById(empCode);
     }
 
-//    @Override
-//    public List<Employee> findEmployeesByEmpAge(int empAge) {
-//        return employeeRepository.findByEmpAge(empAge);
-//    }
-
     @Override
-    public List<Employee> findEmployeesByCondition(String condition, String searchValue) {
-        return switch (condition) {
+    public List<Employee> findEmployeeByCondition(String condition, String searchValue) {
+        System.out.println(condition);
+        System.out.println(searchValue);
+        return switch (condition){
             case "empAge" -> employeeRepository.findByEmpAge(Integer.parseInt(searchValue));
             case "workYear" -> employeeRepository.findByWorkYear(Integer.parseInt(searchValue));
             case "empName" -> employeeRepository.findByEmpNameAndLastDateIsNotNull(searchValue);
             case "department" -> employeeRepository.findByDepartment(searchValue);
             default -> Collections.emptyList();
-        };
-    }
 
+
+        };
+
+    }
 }

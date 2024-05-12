@@ -1,244 +1,228 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <!-- Meta, title, CSS, favicons, etc. -->
-  <meta charset="utf-8">
- <!-- <link rel="icon" th:href="@{/images/favicon.ico}" type="image/ico" />-->
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <title>勤怠管理システム</title>
 
-  <title>勤怠管理システム</title>
+    <!-- Bootstrap -->
+    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+    <!-- iCheck -->
+    <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
 
-  <!-- Bootstrap -->
-  <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
-  <!-- NProgress -->
-  <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
-  <!-- iCheck -->
-  <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+    <!-- Bootstrap Datetimepicker -->
+    <link th:href="@{/vendors/bootstrap-datetimepicker/datetimepicker.css}" rel="stylesheet">
 
-  <!-- bootstrap-progressbar -->
-  <link th:href="@{/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet">
-  <!-- JQVMap -->
-  <link th:href="@{/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet"/>
-  <!-- bootstrap-daterangepicker -->
-  <link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
-
-  <!-- Custom Theme Style -->
-  <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
 </head>
 
 <body class="nav-md">
 <div class="container body">
-  <div class="main_container">
-    <div class="col-md-3 left_col">
-      <div class="left_col scroll-view">
-        <div class="navbar nav_title" style="border: 0;">
-          <!--<a href="employeeRegister.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>-->
-            <h2 class="ml-4" >勤怠管理システム</h2>
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <!--<a href="employeeRegister.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>-->
+                    <h2 class="ml-4" >勤怠管理システム</h2>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img th:src="@{/images/logo.png}" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>ようこそ,</span>
+                        <h2>株式会社アイズ</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <ul class="nav side-menu">
+                            <li><a th:href="@{/employees}"><i class="fa fa-home"></i> 社員表示 </a></li>
+                            <li><a th:href="@{/employeeRegister}"><i class="fa fa-pencil-square" aria-hidden="true"></i> 社員登録 </a></li>
+                            <li><a th:href="@{/employeeSearch}"><i class="fa fa-search" aria-hidden="true"></i> 社員検索 </a></li>
+                            <li><a th:href="@{/workhourRegister}"><i class="fa fa-pencil-square" aria-hidden="true"></i> 勤務時間登録 </a></li>
+                            <li><a th:href="@{/workhourSearch}"><i class="fa fa-search" aria-hidden="true"></i> 勤務時間検索 </a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
 
-        <div class="clearfix"></div>
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <nav class="nav navbar-nav">
+                    <ul class=" navbar-right">
+                        <li class="nav-item dropdown open" style="padding-left: 15px;">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                <img th:src="@{/images/logo.png}" alt="">ad-eyes
+                            </a>
+                            <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item"  href="javascript:;"> Profile</a>
 
-        <!-- menu profile quick info -->
-        <div class="profile clearfix">
-          <div class="profile_pic">
-            <img th:src="@{/images/logo.png}" alt="..." class="img-circle profile_img">
-          </div>
-          <div class="profile_info">
-            <span>ようこそ,</span>
-            <h2>株式会社アイズ</h2>
-          </div>
+                                <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> </a>
+                            </div>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
         </div>
-        <!-- /menu profile quick info -->
+        <!-- /top navigation -->
+        <!-- page content -->
+        <div style="height: 100vh;" class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>  社員情報登録</h3>
+                    </div>
 
-        <br />
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 ">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h5>社員情報を入力し登録します。</h5>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form th:action="@{/employeeForm}" th:object="${employeeForm}" id="demo-form2" data-parsley-validate
+                                      class="form-horizontal form-label-left" method="post">
 
-        <!-- sidebar menu -->
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-          <div class="menu_section">
-              <ul class="nav side-menu">
-                  <li><a th:href="@{/employees}"><i class="fa fa-home"></i> 社員表示 </a></li>
-                  <li><a th:href="@{/employeeRegister}"><i class="fa fa-pencil-square" aria-hidden="true"></i> 社員登録 </a></li>
-                  <li><a th:href="@{/employeeSearch}"><i class="fa fa-search" aria-hidden="true"></i> 社員検索 </a></li>
-                  <li><a th:href="@{/workhourRegister}"><i class="fa fa-pencil-square" aria-hidden="true"></i> 勤務時間登録 </a></li>
-                  <li><a th:href="@{/workhourSearch}"><i class="fa fa-search" aria-hidden="true"></i> 勤務時間検索 </a></li>
-              </ul>
-          </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" >社員番号
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <label>
+                                                <input type="text" name="empCode" th:field="*{empCode}"  required="required"
+                                                       class="form-control ">
+                                            </label>
+                                            <span style="color:red" th:if="${#fields.hasErrors('empCode')}" th:errors="*{empCode}"></span>
+                                            <div class="mt-1" th:if="${empCodeError}" style="color:red" th:text="${empCodeError}"></div>
+                                        </div>
 
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">入社日
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <label for="startDate"></label><input id="startDate" name="startDate" th:field="*{startDate}"
+                                                                                  class="date-picker form-control"
+                                                                                  placeholder="dd-mm-yyyy" required="required" type="date" >
+                                            <span style="color:red" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="empName">名前 <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="empName" name="empName" th:field="*{empName}" required="required" class="form-control">
+                                            <span style="color:red" th:if="${#fields.hasErrors('empName')}" th:errors="*{empName}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">生年月日 <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <label for="birthday"></label><input id="birthday" name="birthday" th:field="*{birthday}" class="date-picker form-control" placeholder="dd-mm-yyyy" required="required" type="date" >
+                                            <span style="color:red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">退職日 </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <label for="lastDate"></label><input id="lastDate" name="lastDate" th:field="*{lastDate}" class="date-picker form-control" placeholder="dd-mm-yyyy" type="date" >
+                                            <span style="color:red" th:if="${#fields.hasErrors('lastDate')}" th:errors="*{lastDate}"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="department">部署名 <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="department" th:field="*{department}" name="department" required="required" class="form-control">
+                                            <span style="color:red" th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="ln_solid"></div>
+                                    <div class="item form-group">
+                                        <div class="col-md-6 col-sm-6 offset-md-3">
+                                            <a th:href="@{homepage}" class="btn btn-info btn-xs"> キャンセル </a>
+                                            <button class="btn btn-primary" type="reset">リセット</button>
+                                            <button type="submit" class="btn btn-success">登録</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-      </div>
+        <!-- end page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                Gentelella - Bootstrap Admin Template by
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
     </div>
-
-    <!-- top navigation -->
-    <div class="top_nav">
-      <div class="nav_menu">
-        <div class="nav toggle">
-          <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-        </div>
-        <nav class="nav navbar-nav">
-          <ul class=" navbar-right">
-            <li class="nav-item dropdown open" style="padding-left: 15px;">
-              <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                <img th:src="@{/images/logo.png}" alt="">ad-eyes
-              </a>
-              <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item"  href="javascript:;"> Profile</a>
-
-                <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> </a>
-              </div>
-            </li>
-
-          </ul>
-        </nav>
-      </div>
-    </div>
-    <!-- /top navigation -->
-    <!-- page content -->
-    <div style="height: 100vh;" class="right_col" role="main">
-      <div class="">
-          <div class="page-title">
-              <div class="title_left">
-                  <h3>  社員情報登録</h3>
-              </div>
-
-          </div>
-          <div class="clearfix"></div>
-          <div class="row">
-              <div class="col-md-12 col-sm-12 ">
-                  <div class="x_panel">
-                      <div class="x_title">
-                          <h5>社員情報を入力し登録します。</h5>
-                          <div class="clearfix"></div>
-                      </div>
-                      <div class="x_content">
-                          <br />
-                          <form th:action="@{/employeeForm}" th:object="${employeeForm}" id="demo-form2" data-parsley-validate
-                                class="form-horizontal form-label-left" method="post">
-
-                              <div class="item form-group">
-                                  <label class="col-form-label col-md-3 col-sm-3 label-align" >社員番号
-                                      <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 ">
-                                      <input type="text" name="empCode" th:field="*{empCode}"  required="required"
-                                             class="form-control ">
-                                      <span style="color:red" th:if="${#fields.hasErrors('empCode')}" th:errors="*{empCode}"></span>
-                                      <div class="mt-1" th:if="${empCodeError}" style="color:red" th:text="${empCodeError}"></div>
-                                  </div>
-
-                              </div>
-                              <div class="item form-group">
-                                  <label class="col-form-label col-md-3 col-sm-3 label-align">入社日
-                                      <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 ">
-                                      <input id="startDate" name="startDate" th:field="*{startDate}"
-                                             class="date-picker form-control"
-                                             placeholder="dd-mm-yyyy"  required="required" type="date" >
-                                      <span style="color:red" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></span>
-
-                                  </div>
-                              </div>
-
-                              <div class="item form-group">
-                                  <label class="col-form-label col-md-3 col-sm-3 label-align" for="empName">名前 <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 ">
-                                      <input type="text" id="empName" name="empName" th:field="*{empName}" required="required" class="form-control">
-                                      <span style="color:red" th:if="${#fields.hasErrors('empName')}" th:errors="*{empName}"></span>
-                                  </div>
-                              </div>
-                              <div class="item form-group">
-                                  <label class="col-form-label col-md-3 col-sm-3 label-align">生年月日 <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 ">
-                                      <input id="birthday" name="birthday" th:field="*{birthday}" class="date-picker form-control" placeholder="dd-mm-yyyy"  required="required" type="date" >
-                                      <span style="color:red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></span>
-
-                                  </div>
-                              </div>
-                              <div class="item form-group">
-                                  <label class="col-form-label col-md-3 col-sm-3 label-align">退職日 </label>
-                                  <div class="col-md-6 col-sm-6 ">
-                                      <input id="lastDate" name="lastDate" th:field="*{lastDate}" class="date-picker form-control" placeholder="dd-mm-yyyy"   type="date" >
-                                      <span style="color:red" th:if="${#fields.hasErrors('lastDate')}" th:errors="*{lastDate}"></span>
-
-                                  </div>
-                              </div>
-                              <div class="item form-group">
-                                  <label class="col-form-label col-md-3 col-sm-3 label-align" for="department">部署名 <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 ">
-                                      <input type="text" id="department" th:field="*{department}" name="department" required="required" class="form-control">
-                                      <span style="color:red" th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></span>
-                                  </div>
-                              </div>
-
-                              <div class="ln_solid"></div>
-                              <div class="item form-group">
-                                  <div class="col-md-6 col-sm-6 offset-md-3">
-                                      <a th:href="@{homepage}" class="btn btn-info btn-xs"> キャンセル </a>
-                                      <button class="btn btn-primary" type="reset">リセット</button>
-                                      <button type="submit" class="btn btn-success">登録</button>
-                                  </div>
-                              </div>
-
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-      </div>
-  </div>
-
-    <!-- end page content -->
-
-    <!-- footer content -->
-    <footer>
-      <div class="pull-right">
-        Gentelella - Bootstrap Admin Template by
-      </div>
-      <div class="clearfix"></div>
-    </footer>
-    <!-- /footer content -->
-  </div>
 </div>
 <!-- Custom Theme Scripts -->
-<script th:src="@{/build/js/custom.min.js}"></script>
-<!-- jQuery -->
 <script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
-<!-- Bootstrap -->
 <script th:src="@{/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-<!-- FastClick -->
 <script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
-<!-- NProgress -->
 <script th:src="@{/vendors/nprogress/nprogress.js}"></script>
-<!-- bootstrap-progressbar -->
-<script th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
-<!-- iCheck -->
+<script th:src="@{/vendors/bootstrap-datetimepicker/moment.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-datetimepicker/datetimepicker.js}"></script>
 <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
-<!-- bootstrap-daterangepicker -->
-<script th:src="@{/vendors/moment/min/moment.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
 <script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
-<!-- bootstrap-wysiwyg -->
 <script th:src="@{/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js}"></script>
 <script th:src="@{/vendors/jquery.hotkeys/jquery.hotkeys.js}"></script>
 <script th:src="@{/vendors/google-code-prettify/src/prettify.js}"></script>
-<!-- jQuery Tags Input -->
 <script th:src="@{/vendors/jquery.tagsinput/src/jquery.tagsinput.js}"></script>
-<!-- Switchery -->
 <script th:src="@{/vendors/switchery/dist/switchery.min.js}"></script>
-<!-- Select2 -->
 <script th:src="@{/vendors/select2/dist/js/select2.full.min.js}"></script>
-<!-- Parsley -->
 <script th:src="@{/vendors/parsleyjs/dist/parsley.min.js}"></script>
-<!-- Autosize -->
 <script th:src="@{/vendors/autosize/dist/autosize.min.js}"></script>
-<!-- jQuery autocomplete -->
 <script th:src="@{/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js}"></script>
-<!-- starrr -->
 <script th:src="@{/vendors/starrr/dist/starrr.js}"></script>
+
+<!-- Your custom scripts -->
+<script th:src="@{/build/js/custom.min.js}"></script>
 </body>
 </html>

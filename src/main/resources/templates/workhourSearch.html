@@ -20,7 +20,7 @@
     <link th:href="@{/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet">
     <!-- JQVMap -->
     <link th:href="@{/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
+    <!-- bootstrap-datetimepicker -->
     <link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
@@ -62,6 +62,7 @@
                             <li><a th:href="@{/employeeSearch}"><i class="fa fa-search" aria-hidden="true"></i> 社員検索 </a></li>
                             <li><a th:href="@{/workhourRegister}"><i class="fa fa-pencil-square" aria-hidden="true"></i> 勤務時間登録 </a></li>
                             <li><a th:href="@{/workhourSearch}"><i class="fa fa-search" aria-hidden="true"></i> 勤務時間検索 </a></li>
+                            <li><a th:href="@{/allWorkHours}"><i class="fa fa-clock-o" aria-hidden="true"></i> All Working Hours </a></li>
                         </ul>
                     </div>
 
@@ -85,7 +86,7 @@
                             <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item"  href="javascript:;"> Profile</a>
 
-                                <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> </a>
+                                <a class="dropdown-item" th:href="@{/login}"><i class="fa fa-sign-out pull-right"></i> </a>
                             </div>
                         </li>
 
@@ -106,56 +107,65 @@
 
                     <div class="col-md-12 col-sm-12  ">
                         <h3>社員検索</h3>
-                        <form th:action="@{/workhourSearch}" th:object="${searchWorkHourForm}" method="post" class="row g-3" >
-                            <div class="col-md-4">
-                                <select class="form-select" name="condition" th:field="*{condition}">
-                                    <option value="" selected disabled>条件選択</option>
-                                    <option value="workDay">日付</option>
-                                    <option value="department">部署名</option>
+<!--                        <form th:action="@{/workhourSearch}" th:object="${searchWorkHourForm}" method="post" class="row g-3" >-->
+<!--                            <div class="col-md-4">-->
+<!--                                <select class="form-select" name="condition" th:field="*{condition}">-->
+<!--                                    <option value="" selected disabled>条件選択</option>-->
+<!--                                    <option value="workDay">日付</option>-->
+<!--                                    <option value="department">部署名</option>-->
 
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="searchValue" th:field="*{searchValue}" class="form-control" placeholder="ここに入力してください" required>
-                            </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-primary" type="submit">検索</button>
-                            </div>
-                        </form>
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-4">-->
+<!--                                <label>-->
+<!--                                    <input type="text" name="searchValue" th:field="*{searchValue}" class="form-control" placeholder="ここに入力してください" required>-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-4">-->
+<!--                                <button class="btn btn-primary" type="submit">検索</button>-->
+<!--                            </div>-->
+<!--                        </form>-->
                     </div>
 
 
                 </div>
+
+
+
+
+
 
                 <div class="x_content mt-3">
 
                     <div class="table-responsive">
                         <table class="table table-striped jambo_table bulk_action">
                             <thead>
-                            <tr class="headings">
-                                <th class="column-title">名前 </th>
-                                <th class="column-title">日付</th>
-                                <th class="column-title">総労働時間 </th>
-                                <th class="column-title">残業時間 </th>
-                                <th class="column-title no-link last"><span class="nobr">アクション</span>
-                                </th>
-
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>Work Day</th>
+                                <th>Work Start</th>
+                                <th>Work Finish</th>
+                                <th>Work Time</th>
+                                <th>Over Time</th>
+                                <th>Break Time</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
-
                             <tbody>
-                            <tr th:each="workHour : ${workHours}" >
-                                <td th:text="${workHour.empName}" ></td>
-                                <td th:text="${workHour.workDay}" ></td>
-                                <td th:text="${workHour.workTime}" ></td>
-                                <td th:text="${workHour.overTime}" ></td>
-                                <td >
-                                    <a th:href="@{/employees/edit/{empCode}(empCode=${employee.empCode})}"
-                                       class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> 変更 </a>
-                                    <a th:href="@{/employees/{empCode}(empCode=${employee.empCode})}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> 削除 </a>
+                            <!-- Iterate over each work hour -->
+                            <tr th:each="hour : ${workingHour}">
+                                <td th:text="${hour.employee != null ? hour.employee.empName : 'N/A'}">Employee Name</td>
+                                <td th:text="${#dates.format(hour.workDay, 'yyyy-MM-dd')}">Work Day</td>
+                                <td th:text="${hour.workStart}">Work Start</td>
+                                <td th:text="${hour.workFinish}">Work Finish</td>
+                                <td th:text="${hour.workTime}">Work Time</td>
+                                <td th:text="${hour.overTime}">Over Time</td>
+                                <td th:text="${hour.breakTime}">Break Time</td>
+                                <td>
+                                    <a th:href="@{/edit/{id}(id=${hour.id})}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</a>
+                                    <a th:href="@{/delete/{id}(id=${hour.id})}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a>
                                 </td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -179,5 +189,40 @@
 </footer>
 <!-- /footer content -->
 
+<!-- Custom Theme Scripts -->
+<script th:src="@{/build/js/custom.min.js}"></script>
+<!-- jQuery -->
+<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+<!-- NProgress -->
+<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+<!-- bootstrap-progressbar -->
+<script th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+<!-- iCheck -->
+<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+<!-- bootstrap-datetimepicker -->
+<script th:src="@{/vendors/moment/min/moment.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
+<!-- bootstrap-wysiwyg -->
+<script th:src="@{/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js}"></script>
+<script th:src="@{/vendors/jquery.hotkeys/jquery.hotkeys.js}"></script>
+<script th:src="@{/vendors/google-code-prettify/src/prettify.js}"></script>
+<!-- jQuery Tags Input -->
+<script th:src="@{/vendors/jquery.tagsinput/src/jquery.tagsinput.js}"></script>
+<!-- Switcher -->
+<script th:src="@{/vendors/switchery/dist/switchery.min.js}"></script>
+<!-- Select2 -->
+<script th:src="@{/vendors/select2/dist/js/select2.full.min.js}"></script>
+<!-- Parsley -->
+<script th:src="@{/vendors/parsleyjs/dist/parsley.min.js}"></script>
+<!-- Automize -->
+<script th:src="@{/vendors/autosize/dist/autosize.min.js}"></script>
+<!-- jQuery autocomplete -->
+<script th:src="@{/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js}"></script>
+<!-- starer -->
+<script th:src="@{/vendors/starrr/dist/starrr.js}"></script>
 </body>
 </html>

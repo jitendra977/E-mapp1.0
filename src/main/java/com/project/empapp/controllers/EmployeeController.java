@@ -5,30 +5,35 @@ import com.project.empapp.models.Employee;
 import com.project.empapp.services.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @Data
-//@RequestMapping("/app/employees")
 public class EmployeeController {
 
-    private final EmployeeService employeeService;
+    @Autowired
+    private EmployeeService employeeService;
 
-    //get employees
+
     @GetMapping("/employees")
-    public String listEmployees(Model model){
-        model.addAttribute("employees", employeeService.getAllEmployees());
-        return "employees";
+    public String listEmployees(Model model) {
+        List<Employee> employees = employeeService.getAllEmployees();
+        model.addAttribute("employees", employees);
+        return "employees"; // Assuming "employees" is the name of your view file (e.g., employees.html)
     }
 
     @GetMapping("/employeeRegister")
-    public String createEmployee(Model model) {
-        model.addAttribute("employeeForm" , new EmployeeForm());
+    public  String createEmployee(Model model){
+        model.addAttribute("employeeForm",new EmployeeForm());
         return "employeeRegister";
     }
+
 
 
     @PostMapping("/employeeForm")
@@ -38,7 +43,6 @@ public class EmployeeController {
             model.addAttribute("empCodeError", "社員番号が既に存在しています");
             return "employeeRegister";
         }
-
         if(bindingResult.hasErrors()){
             return "employeeRegister";
         }
@@ -46,31 +50,33 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
-    //update
-    @GetMapping("/employees/edit/{empCode}")
-    public String editEmployeeForm(@Valid @PathVariable Long empCode, Model model ){
+
+    @GetMapping("/edit/{empCode}")
+    public String editEmployeeForm(@PathVariable("empCode") Long empCode, Model model ){
         model.addAttribute("employee", employeeService.getEmployeeById(empCode));
         return "editEmployee";
 
     }
-
-    @PostMapping("/employees/{empCode}")
-    public String updateEmployee(@Valid @PathVariable Long empCode,
+    //update
+    @PostMapping("/update/{empCode}")
+    public String updateEmployee(@Valid @PathVariable("empCode") Long empCode,
                                  @ModelAttribute("employee") EmployeeForm employeeForm,
-                                 BindingResult bindingResult,Model model){
+                                 BindingResult bindingResult, Model model) {
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "editEmployee";
         }
-        employeeService.updateEmployee(empCode,employeeForm);
+        employeeService.updateEmployee(empCode, employeeForm);
         return "redirect:/employees";
     }
 
+
     //delete
-    @GetMapping("/employees/{empCode}")
-    public String deleteEmployee(@PathVariable Long empCode){
+    @GetMapping("/delete/{empCode}")
+    public String deleteEmployee(@PathVariable("empCode") Long empCode){
         employeeService.deleteEmployee(empCode);
         return "redirect:/employees";
     }
+
 
 }
