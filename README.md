@@ -18,9 +18,9 @@ Welcome to the Employee Management System project! This system is designed to he
 
 ### Prerequisites
 
-- Python 3.x installed on your system
-- Pip package manager
-- Required Python packages (specified in `requirements.txt`)
+- Java Spring Boot 
+
+
 
 ### Installation
 
